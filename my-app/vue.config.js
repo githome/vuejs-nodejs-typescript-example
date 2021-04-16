@@ -6,5 +6,8 @@ module.exports = {
           changeOrigin: true
         },
       }
-    }
+    },
+    outputDir: process.env.NODE_ENV === 'production'
+        ? '../dist/dist'
+        : 'dist'
   }
