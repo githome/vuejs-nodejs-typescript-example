@@ -8,6 +8,6 @@ module.exports = {
       }
     },
     outputDir: process.env.NODE_ENV === 'production'
-        ? '../dist/dist'
+        ? '../publish/dist'
         : 'dist'
   }
