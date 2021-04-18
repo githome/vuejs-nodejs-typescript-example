@@ -1,7 +1,8 @@
 import * as bodyParser from "body-parser";
 import * as express from "express";
-import {Logger} from "./logger/logger";
+import { Logger } from "./logger/logger";
 import Routes from "./routes/routes";
+import * as cors from 'cors';
 
 const path = require('path');
 
@@ -23,6 +24,9 @@ class App {
 
     // Configure Express middleware.
     private middleware(): void {
+
+        this.express.use(cors())
+
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({extended: false}));
 

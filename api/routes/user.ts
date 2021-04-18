@@ -21,10 +21,40 @@ class User {
     // Configure Express middleware.
     private middleware(): void {
         this.express.use(bodyParser.json());
-        this.express.use(bodyParser.urlencoded({ extended: false }));
+        this.express.use(bodyParser.urlencoded({extended: false}));
     }
 
     private routes(): void {
+
+        this.express.post("/users/login", (req, res, next) => {
+            this.logger.info("url:" + req.url);
+            res.json({"code": 20000, "data": {"accessToken": "admin-token"}});
+        });
+
+        this.express.post("/users/logout", (req, res, next) => {
+            this.logger.info("url:" + req.url);
+            res.json({"code":20000});
+        });
+
+        this.express.post('/users/info', (req, res, next) => {
+            this.logger.info("url:" + req.url);
+            res.json({
+                "code": 20000,
+                "data": {
+                    "user": {
+                        "id": 0,
+                        "username": "admin",
+                        "password": "any",
+                        "name": "Super Admin",
+                        "avatar": "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif",
+                        "introduction": "I am a super administrator",
+                        "email": "admin@test.com",
+                        "phone": "1234567890",
+                        "roles": ["admin"]
+                    }
+                }
+            });
+        });
 
         // request to get all the users
         this.express.get("/users", (req, res, next) => {
@@ -35,7 +65,7 @@ class User {
         // request to get all the users by userName
         this.express.get("/users/:userName", (req, res, next) => {
             this.logger.info("url:::::" + req.url);
-            const user = this.users.filter(function(user) {
+            const user = this.users.filter(function (user) {
                 if (req.params.userName === user.userName) {
                     return user;
                 }
